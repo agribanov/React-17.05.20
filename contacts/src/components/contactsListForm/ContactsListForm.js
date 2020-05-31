@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './ContactsListForm.css';
 
 export default class ContactsListForm extends Component {
     state = {
@@ -8,31 +9,106 @@ export default class ContactsListForm extends Component {
             age: '33',
             phone: '000',
         },
-        validation: {},
+        isValid: {
+            name: true,
+            surname: true,
+            age: true,
+            phone: true,
+        },
+        isFormValid: true,
     };
 
     onSaveClick = () => {
-        this.props.onSave(this.state.values);
+        this.props.onSave({ ...this.state.values });
     };
 
+    onInputChange = (e) => {
+        const { name, value } = e.target;
+
+        this.setState({
+            values: {
+                ...this.state.values,
+                [name]: value,
+            },
+        });
+
+        this.validateInput(name, value);
+    };
+
+    validateInput(name, value) {
+        const isValid = {
+            ...this.state.isValid,
+            [name]: this.isValueValid(name, value),
+        };
+
+        this.setState({
+            isValid,
+            isFormValid: !Object.keys(isValid).find((key) => !isValid[key]),
+        });
+    }
+
+    isValueValid(name, value) {
+        switch (name) {
+            case 'name':
+            case 'surname':
+                return !!value;
+            case 'phone':
+                return (
+                    !!value &&
+                    value.match(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g)
+                );
+            case 'age':
+                return !!value && !isNaN(value);
+        }
+    }
+
     render() {
-        const { values, validation } = this.state;
+        const { values, isValid } = this.state;
         return (
             <tr>
                 <td>
-                    <input type="text" name="name" value={values.name} />
+                    <input
+                        className={isValid.name ? '' : 'error'}
+                        type="text"
+                        name="name"
+                        value={values.name}
+                        onChange={this.onInputChange}
+                    />
                 </td>
                 <td>
-                    <input type="text" name="surname" value={values.surname} />
+                    <input
+                        className={isValid.surname ? '' : 'error'}
+                        type="text"
+                        name="surname"
+                        value={values.surname}
+                        onChange={this.onInputChange}
+                    />
                 </td>
                 <td>
-                    <input type="text" name="age" value={values.age} />
+                    <input
+                        className={isValid.age ? '' : 'error'}
+                        type="text"
+                        name="age"
+                        value={values.age}
+                        onChange={this.onInputChange}
+                    />
                 </td>
                 <td>
-                    <input type="text" name="phone" value={values.phone} />
+                    <input
+                        className={isValid.phone ? '' : 'error'}
+                        type="text"
+                        name="phone"
+                        value={values.phone}
+                        onChange={this.onInputChange}
+                    />
                 </td>
                 <td>
-                    <button onClick={this.onSaveClick}>Save</button>
+                    <button
+                        onClick={this.onSaveClick}
+                        disabled={!this.state.isFormValid}
+                    >
+                        Save
+                    </button>
                     <button onClick={this.props.onCancel}>Cancel</button>
                 </td>
             </tr>

@@ -100,7 +100,13 @@ export class ContactsList extends Component {
     };
 
     onFormSave = (contact) => {
-        console.log('new contact', contact);
+        contact.id = Date.now();
+
+        this.setState({
+            contacts: [...this.state.contacts, contact],
+        });
+
+        this.hideForm();
     };
 
     render() {
