@@ -78,12 +78,29 @@ export class ContactsList extends Component {
                 phone: '024-648-3804',
             },
         ],
+        isFormVisible: false,
     };
 
     onDelete = (contactId) => {
         this.setState({
             contacts: this.state.contacts.filter(({ id }) => id !== contactId),
         });
+    };
+
+    showForm = () => {
+        this.setState({
+            isFormVisible: true,
+        });
+    };
+
+    hideForm = () => {
+        this.setState({
+            isFormVisible: false,
+        });
+    };
+
+    onFormSave = (contact) => {
+        console.log('new contact', contact);
     };
 
     render() {
@@ -108,7 +125,20 @@ export class ContactsList extends Component {
                     ))}
                 </tbody>
                 <tfoot>
-                    <ContactsListForm></ContactsListForm>
+                    {this.state.isFormVisible ? (
+                        <ContactsListForm
+                            onSave={this.onFormSave}
+                            onCancel={this.hideForm}
+                        ></ContactsListForm>
+                    ) : (
+                        <tr>
+                            <td colSpan="5">
+                                <button onClick={this.showForm}>
+                                    Show form
+                                </button>
+                            </td>
+                        </tr>
+                    )}
                 </tfoot>
             </table>
         );
