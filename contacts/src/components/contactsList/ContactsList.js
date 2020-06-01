@@ -135,6 +135,7 @@ export class ContactsList extends Component {
                         <ContactsListForm
                             onSave={this.onFormSave}
                             onCancel={this.hideForm}
+                            initialName="Bob"
                         ></ContactsListForm>
                     ) : (
                         <tr>

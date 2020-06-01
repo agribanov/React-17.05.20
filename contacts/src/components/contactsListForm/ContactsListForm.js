@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import './ContactsListForm.css';
+import Timer from '../../Timer';
 
 export default class ContactsListForm extends Component {
-    state = {
-        values: {
-            name: 'Alex',
-            surname: 'Smith',
-            age: '33',
-            phone: '000',
-        },
-        isValid: {
-            name: true,
-            surname: true,
-            age: true,
-            phone: true,
-        },
-        isFormValid: true,
-    };
+    constructor() {
+        super();
 
-    onSaveClick = () => {
+        console.log('constructor');
+
+        this.state = {
+            values: {
+                name: 'Alex',
+                surname: 'Smith',
+                age: '33',
+                phone: '000',
+            },
+            isValid: {
+                name: true,
+                surname: true,
+                age: true,
+                phone: true,
+            },
+            isFormValid: true,
+        };
+
+        this.onSaveClick = this.onSaveClick.bind(this);
+    }
+
+    onSaveClick() {
         this.props.onSave({ ...this.state.values });
-    };
+    }
 
     onInputChange = (e) => {
         const { name, value } = e.target;
@@ -62,10 +71,24 @@ export default class ContactsListForm extends Component {
         }
     }
 
+    componentDidMount() {
+        console.log('componentDidMount');
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate');
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
+
     render() {
         const { values, isValid } = this.state;
+        console.log('render');
+
         return (
-            <tr>
+            <tr id="contactForm">
                 <td>
                     <input
                         className={isValid.name ? '' : 'error'}
@@ -103,6 +126,7 @@ export default class ContactsListForm extends Component {
                     />
                 </td>
                 <td>
+                    <Timer />
                     <button
                         onClick={this.onSaveClick}
                         disabled={!this.state.isFormValid}
