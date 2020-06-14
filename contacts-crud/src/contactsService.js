@@ -1,38 +1,30 @@
-const URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/users';
+import axios from 'axios';
+export default axios.create({
+    baseURL: 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
-function getContacts() {
-    return fetch(URL).then((res) => res.json());
-}
+// function getContacts() {
+//     return usersAPI.get();
+// }
 
-function addContact(contact) {
-    return fetch(URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contact),
-    }).then((res) => res.json());
-}
+// function addContact(contact) {
+//     return usersAPI.post('', contact);
+// }
 
-function updateContact(contact) {
-    return fetch(URL + '/' + contact.id, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contact),
-    }).then((res) => res.json());
-}
+// function updateContact(contact) {
+//     return usersAPI.put(contact.id, contact);
+// }
 
-function deleteContact(id) {
-    return fetch(URL + '/' + id, {
-        method: 'DELETE',
-    }).then((res) => res.json());
-}
+// function deleteContact(id) {
+//     return usersAPI.delete(id);
+// }
 
-export default {
-    getContacts,
-    addContact,
-    updateContact,
-    deleteContact,
-};
+// export default {
+//     getContacts,
+//     addContact,
+//     updateContact,
+//     deleteContact,
+// };
