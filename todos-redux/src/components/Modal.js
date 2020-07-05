@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { closeModal, changeFormItem, saveFormItem } from '../store/actions';
+import {
+    closeModal,
+    changeFormItem,
+    saveFormItem,
+} from '../store/actions/todos';
 
 function Modal({ item, onChange, onSave, onCancel }) {
     function onValueChange(e) {
         const changes = {
-            title: e.target.value
+            title: e.target.value,
         };
         onChange(changes);
     }
@@ -39,7 +43,7 @@ const backgroundStyles = {
     opacity: '0.4',
     position: 'absolute',
     top: '0',
-    left: '0'
+    left: '0',
 };
 
 const modalStyles = {
@@ -48,23 +52,23 @@ const modalStyles = {
     left: '300px',
     padding: '30px 50px 10px',
     border: '1px solid black',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
 };
 
 const inputStyles = {
-    width: '200px'
+    width: '200px',
 };
 
 function mapStateToProps(state) {
     return {
-        item: state.formItem
+        item: state.todos.formItem,
     };
 }
 
 const mapDispatchToProps = {
     onCancel: closeModal,
     onChange: changeFormItem,
-    onSave: saveFormItem
+    onSave: saveFormItem,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import List from './components/List';
 import Modal from './components/Modal';
 import { connect } from 'react-redux';
-import { openModal } from './store/actions';
+import { openModal } from './store/actions/todos';
 function App({ modalVisible, openModal }) {
     return (
         <>
@@ -15,12 +15,12 @@ function App({ modalVisible, openModal }) {
 
 function mapStateToProps(state) {
     return {
-        modalVisible: !!state.formItem
+        modalVisible: !!state.todos.formItem,
     };
 }
 
 const mapDispatchToProps = {
-    openModal: openModal
+    openModal: openModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

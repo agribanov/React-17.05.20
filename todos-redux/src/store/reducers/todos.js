@@ -4,12 +4,12 @@ import {
     ACTION_OPEN_MODAL,
     ACTION_CLOSE_MODAL,
     ACTION_CHANGE_FORM_ITEM,
-    ACTION_SAVE_FORM_ITEM
-} from './actions';
+    ACTION_SAVE_FORM_ITEM,
+} from '../actions/todos';
 
 const initialState = {
     todos: [{ id: '7', title: 'Some very important todo', isDone: true }],
-    formItem: null
+    formItem: null,
 };
 
 function getEmptyItem() {
@@ -17,7 +17,7 @@ function getEmptyItem() {
 }
 
 function updateTodo(todos, todo) {
-    return todos.map(item => (item.id == todo.id ? todo : item));
+    return todos.map((item) => (item.id == todo.id ? todo : item));
 }
 
 function createTodo(todos, todo) {
@@ -25,41 +25,41 @@ function createTodo(todos, todo) {
     return [...todos, todo];
 }
 
-export default function(state = initialState, { type, payload }) {
+export default function (state = initialState, { type, payload }) {
     switch (type) {
         case ACTION_DELETE:
             return {
                 ...state,
-                todos: state.todos.filter(item => item.id !== payload)
+                todos: state.todos.filter((item) => item.id !== payload),
             };
         case ACTION_TOGGLE:
             return {
                 ...state,
-                todos: state.todos.map(item =>
+                todos: state.todos.map((item) =>
                     item.id !== payload
                         ? item
                         : { ...item, isDone: !item.isDone }
-                )
+                ),
             };
 
         case ACTION_OPEN_MODAL:
             return {
                 ...state,
                 formItem: payload
-                    ? state.todos.find(item => item.id == payload)
-                    : getEmptyItem()
+                    ? state.todos.find((item) => item.id == payload)
+                    : getEmptyItem(),
             };
 
         case ACTION_CLOSE_MODAL:
             return {
                 ...state,
-                formItem: null
+                formItem: null,
             };
 
         case ACTION_CHANGE_FORM_ITEM:
             return {
                 ...state,
-                formItem: { ...state.formItem, ...payload }
+                formItem: { ...state.formItem, ...payload },
             };
 
         case ACTION_SAVE_FORM_ITEM:
@@ -68,7 +68,7 @@ export default function(state = initialState, { type, payload }) {
                 todos: payload.id
                     ? updateTodo(state.todos, payload)
                     : createTodo(state.todos, payload),
-                formItem: null
+                formItem: null,
             };
 
         default:

@@ -1,12 +1,12 @@
 import React from 'react';
 import ListItem from './ListItem';
 import { connect } from 'react-redux';
-import { deleteTodo, toggleTodo, openModal } from '../store/actions';
+import { deleteTodo, toggleTodo, openModal } from '../store/actions/todos';
 
 function List({ items, onItemToggle, onItemDelete, onItemEdit }) {
     return (
         <div style={listStyles}>
-            {items.map(item => (
+            {items.map((item) => (
                 <ListItem
                     key={item.id}
                     item={item}
@@ -21,19 +21,19 @@ function List({ items, onItemToggle, onItemDelete, onItemEdit }) {
 
 const listStyles = {
     margin: '0 auto',
-    width: '600px'
+    width: '600px',
 };
 
 function mapStateToProps(state) {
     return {
-        items: state.todos
+        items: state.todos.todos,
     };
 }
 
 const mapDispatchToProps = {
     onItemDelete: deleteTodo,
     onItemToggle: toggleTodo,
-    onItemEdit: openModal
+    onItemEdit: openModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
