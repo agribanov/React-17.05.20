@@ -26,6 +26,8 @@ function createTodo(todos, todo) {
 }
 
 export default function (state = initialState, { type, payload }) {
+    console.log('Todos reducer', state, type, payload);
+
     switch (type) {
         case ACTION_DELETE:
             return {
