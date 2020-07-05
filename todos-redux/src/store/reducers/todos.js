@@ -5,13 +5,13 @@ import {
     ACTION_CLOSE_MODAL,
     ACTION_CHANGE_FORM_ITEM,
     ACTION_SAVE_FORM_ITEM,
+    ACTION_SET_TODOS,
+    ACTION_UPDATE_ITEM,
+    ACTION_CREATE_ITEM,
 } from '../actions/todos';
 
 const initialState = {
-    todos: [
-        { id: '7', title: 'Some very important todo', isDone: true },
-        { id: '17', title: 'Some todo', isDone: false },
-    ],
+    todos: [],
     formItem: null,
 };
 
@@ -24,7 +24,6 @@ function updateTodo(todos, todo) {
 }
 
 function createTodo(todos, todo) {
-    todo.id = Date.now();
     return [...todos, todo];
 }
 
@@ -32,6 +31,8 @@ export default function (state = initialState, { type, payload }) {
     console.log('Todos reducer', state, type, payload);
 
     switch (type) {
+        case ACTION_SET_TODOS:
+            return { ...state, todos: payload };
         case ACTION_DELETE:
             return {
                 ...state,
@@ -67,15 +68,16 @@ export default function (state = initialState, { type, payload }) {
                 formItem: { ...state.formItem, ...payload },
             };
 
-        case ACTION_SAVE_FORM_ITEM:
+        case ACTION_UPDATE_ITEM:
             return {
                 ...state,
-                todos: payload.id
-                    ? updateTodo(state.todos, payload)
-                    : createTodo(state.todos, payload),
-                formItem: null,
+                todos: updateTodo(state.todos, payload),
             };
-
+        case ACTION_CREATE_ITEM:
+            return {
+                ...state,
+                todos: createTodo(state.todos, payload),
+            };
         default:
             return state;
     }
