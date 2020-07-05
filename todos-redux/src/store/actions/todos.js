@@ -44,3 +44,9 @@ export function saveFormItem(changes) {
         payload: changes,
     };
 }
+
+export function fetchTodos() {
+    return function (dispatch, getState) {
+        console.log('fetching server', getState, dispatch);
+    };
+}

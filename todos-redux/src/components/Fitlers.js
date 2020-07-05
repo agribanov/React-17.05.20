@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setFilter } from '../store/actions/fitlers';
+import store from '../store';
 
 function Fitlers({ filter, allTodosCount, setFilter }) {
     return (
