@@ -25,8 +25,17 @@ const listStyles = {
 };
 
 function mapStateToProps(state) {
+    const filter = state.filters.filter;
+
     return {
-        items: state.todos.todos,
+        items:
+            filter === 'all'
+                ? state.todos.todos
+                : state.todos.todos.filter((item) => {
+                      if (filter === 'done' && item.isDone) return true;
+                      if (filter === 'todo' && !item.isDone) return true;
+                      return false;
+                  }),
     };
 }
 

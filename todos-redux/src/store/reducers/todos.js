@@ -8,7 +8,10 @@ import {
 } from '../actions/todos';
 
 const initialState = {
-    todos: [{ id: '7', title: 'Some very important todo', isDone: true }],
+    todos: [
+        { id: '7', title: 'Some very important todo', isDone: true },
+        { id: '17', title: 'Some todo', isDone: false },
+    ],
     formItem: null,
 };
 
